@@ -1,4 +1,5 @@
-import {accessKeyId,secretAccessKey} from './s3-config.json'
+import {accessKeyId, secretAccessKey} from './s3-config.json'
+
 export const smtp = {
     host: 'smtp.sendgrid.net',
     port: 587,
@@ -8,7 +9,6 @@ export const smtp = {
         pass: 'SendGridApiKey'  // generated ethereal password
     }
 };
-
 
 
 export const url = 'http://localhost:3001';

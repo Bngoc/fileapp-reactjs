@@ -4,73 +4,72 @@ import _ from 'lodash'
 export default class Auth {
 
 
-	constructor(app){
+    constructor(app) {
 
-		this.app = app;
-
-
-		this.createToken = this.createToken.bind(this);
-
-		this.model = {
-			userId: null,
-			expire: null,
-		}
+        this.app = app;
 
 
-	}
+        this.createToken = this.createToken.bind(this);
+
+        this.model = {
+            userId: null,
+            expire: null,
+        }
 
 
-	createToken(user, expire = null, cb = () => {}){
-
-		let model = this.model;
+    }
 
 
-		const db = this.app.db;
+    createToken(user, expire = null, cb = () => {
+    }) {
 
-		model.userId = user._id;
-		model.expire = expire;
-
-		db.collection('tokens').insertOne(model, (err, token) => {
-			return cb(err, model);
-
-		});
+        let model = this.model;
 
 
-	}
+        const db = this.app.db;
 
-	checkAuth(req, cb = () => {}){
+        model.userId = user._id;
+        model.expire = expire;
 
-		const token = req.get('authorization');
+        db.collection('tokens').insertOne(model, (err, token) => {
+            return cb(err, model);
 
-		if(!token){
-			return cb(false);
-		}
-
-
-		const db = this.app.db;
-
-		const query = {
-			_id: new ObjectID(token)
-		}
-		db.collection('tokens').find(query).limit(1).toArray((err, tokenObjects) => {
-
-			const tokenObj = _.get(tokenObjects, '[0]', null);
-
-			if(err === null && tokenObj){
-
-				return cb(true);
-			}
-
-			return cb(false);
-			
-
-		});
-
-		
-	}
+        });
 
 
+    }
 
+    checkAuth(req, cb = () => {
+    }) {
+
+        const token = req.get('authorization');
+
+        if (!token) {
+            return cb(false);
+        }
+
+
+        const db = this.app.db;
+
+        const query = {
+            _id: new ObjectID(token)
+        }
+        db.collection('tokens').find(query).limit(1).toArray((err, tokenObjects) => {
+
+            const tokenObj = _.get(tokenObjects, '[0]', null);
+
+            if (err === null && tokenObj) {
+
+                return cb(true);
+            }
+
+            return cb(false);
+
+
+        });
+
+
+    }
 
 
 }

@@ -1,4 +1,3 @@
-import path from 'path'
 import {version} from '../package.json'
 import _ from 'lodash'
 import File from './models/file'
@@ -137,11 +136,6 @@ class AppRouter {
                 return res.redirect(downloadUrl);
 
 
-
-
-
-
-
                 /*const filePath = path.join(uploadDir, fileName);
 
                 return res.download(filePath, _.get(result, '[0].originalName'), (err) => {
@@ -161,7 +155,6 @@ class AppRouter {
                     }
 
                 });*/
-
 
 
             });
@@ -213,7 +206,6 @@ class AppRouter {
 
         app.post('/api/users', (req, res, next) => {
 
-        
 
             const body = _.get(req, 'body');
 
@@ -226,14 +218,13 @@ class AppRouter {
                 console.log("New user created with error & callback", err, newUser);
 
 
-                if(err){
+                if (err) {
                     return res.status(503).json({
                         error: {message: err}
                     });
                 }
                 return res.status(200).json(newUser);
             });
-
 
 
         });
@@ -253,18 +244,16 @@ class AppRouter {
 
             user.login(email, password, (err, token) => {
 
-                    if(err){
+                if (err) {
 
-                        return res.status(401).json({
-                            message: "An error login your account. Please try again!"
-                        });
-                    }
+                    return res.status(401).json({
+                        message: "An error login your account. Please try again!"
+                    });
+                }
 
-                    return res.status(200).json(token);
+                return res.status(200).json(token);
             });
 
-
-            
 
         });
 
@@ -272,13 +261,12 @@ class AppRouter {
         app.get('/api/users/:id', (req, res, next) => {
 
 
-
             const auth = new Auth(app);
 
             auth.checkAuth(req, (isLoggedIn) => {
 
 
-                if(!isLoggedIn){
+                if (!isLoggedIn) {
 
                     return res.status(401).json({
                         message: "Unauthorized"
@@ -291,26 +279,19 @@ class AppRouter {
                 const user = new User(app).findById(userId, (err, obj) => {
 
 
-                        if(err){
+                    if (err) {
 
-                            return res.status(404).json({
-                                message: "User not found."
-                            });
-                        }
+                        return res.status(404).json({
+                            message: "User not found."
+                        });
+                    }
 
-                        return res.status(200).json(obj);
+                    return res.status(200).json(obj);
 
-                 });
-
+                });
 
 
             });
-
-            
-
-
-
-            
 
 
         });
@@ -330,8 +311,7 @@ class AppRouter {
         let postObjectId = null;
         try {
             postObjectId = new ObjectID(id);
-        }
-        catch (err) {
+        } catch (err) {
 
             return callback(err, null);
 

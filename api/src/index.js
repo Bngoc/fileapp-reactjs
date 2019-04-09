@@ -9,8 +9,7 @@ import path from 'path';
 import {connect} from "./database";
 import AppRouter from './router'
 import nodemailer from 'nodemailer'
-import {smtp, s3Config, s3Region,s3Bucket} from './config'
-
+import {s3Bucket, s3Config, s3Region, smtp} from './config'
 // Amazon S3 Setup
 import AWS from 'aws-sdk'
 import multerS3 from 'multer-s3'
@@ -18,10 +17,9 @@ import multerS3 from 'multer-s3'
 
 AWS.config.update(s3Config);
 
-AWS.config.region = s3Region ;
+AWS.config.region = s3Region;
 
 const s3 = new AWS.S3();
-
 
 
 // Setup Email
@@ -49,7 +47,6 @@ const upload = multer({
         }
     })
 })
-
 
 
 // End file storage config
@@ -81,7 +78,7 @@ app.s3 = s3;
 
 connect((err, db) => {
 
-    if(err){
+    if (err) {
         console.log("An error connecting to the database", err);
         throw (err);
     }
@@ -99,7 +96,6 @@ connect((err, db) => {
     });
 
 });
-
 
 
 export default app;

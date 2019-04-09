@@ -8,7 +8,6 @@ import _ from 'lodash'
 class Home extends Component {
 
     constructor(props) {
-
         super(props);
 
         this.state = {
@@ -16,21 +15,13 @@ class Home extends Component {
             data: null,
             uploadEvent: null,
         };
-
-
         this._renderComponent = this._renderComponent.bind(this)
-
     }
 
-
     _renderComponent() {
-
         const {componentName, data, uploadEvent} = this.state;
-
         switch (componentName) {
-
             case 'HomeUploading':
-
                 return <HomeUploading onCancel={() => {
 
                     this.setState({
@@ -38,31 +29,20 @@ class Home extends Component {
                         data: null,
                         componentName: 'HomeForm'
                     })
-
                 }} event={uploadEvent} data={data}/>
-
-
             case 'HomeUploadSent':
-
-
                 return (
                     <HomeUploadSent onSendAnotherFile={() => {
-
                         this.setState({
                             componentName: 'HomeForm'
                         })
-
                     }} data={data}/>
                 );
-
-
             default:
                 return <HomeForm
                     onUploadEvent={(event) => {
-
                         let data = this.state.data;
-
-                        if(_.get(event, 'type') === 'success'){
+                        if (_.get(event, 'type') === 'success') {
 
                             data = _.get(event, 'payload');
                         }
@@ -70,7 +50,7 @@ class Home extends Component {
                             {
                                 data: data,
                                 uploadEvent: event,
-                                componentName: (_.get(event, 'type') === 'success') ? 'HomeUploadSent': this.state.componentName,
+                                componentName: (_.get(event, 'type') === 'success') ? 'HomeUploadSent' : this.state.componentName,
                             }
                         );
                     }}
@@ -89,13 +69,10 @@ class Home extends Component {
     render() {
 
         return (
-
             <div className={'app-container'}>
                 <Header/>
                 <div className={'app-content'}>
-
                     {this._renderComponent()}
-
                 </div>
             </div>
         )

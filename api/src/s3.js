@@ -1,30 +1,29 @@
 import _ from 'lodash'
 import {s3Bucket} from './config'
-export default class S3{
 
-    constructor(app, response){
+export default class S3 {
+
+    constructor(app, response) {
         this.app = app;
         this.response = response;
 
     }
 
 
-
-    getObject(file){
+    getObject(file) {
         const s3 = this.app.s3;
 
-        const options  ={
+        const options = {
             Bucket: s3Bucket,
             Key: _.get(file, 'name')
         };
 
-       return s3.getObject(options).createReadStream();
-
-
+        return s3.getObject(options).createReadStream();
 
 
     }
-    download(file){
+
+    download(file) {
 
         const s3 = this.app.s3;
         const response = this.response;
@@ -34,7 +33,7 @@ export default class S3{
         const filename = _.get(file, 'originalName');
         response.attachment(filename);
 
-        const options  ={
+        const options = {
             Bucket: s3Bucket,
             Key: _.get(file, 'name')
         };
@@ -43,13 +42,12 @@ export default class S3{
         fileObject.pipe(response);
 
 
-
     }
 
-    getDownloadUrl(file){
+    getDownloadUrl(file) {
 
         const s3 = this.app.s3;
-        const options  ={
+        const options = {
             Bucket: s3Bucket,
             Key: _.get(file, 'name'),
             Expires: 3600, // one hour expires.
@@ -61,7 +59,6 @@ export default class S3{
         return url;
 
     }
-
 
 
 }

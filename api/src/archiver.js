@@ -1,18 +1,17 @@
 import archiver from 'archiver'
 import _ from 'lodash'
-import path from 'path'
 import S3 from './s3'
 
-export default class FileArchiver{
+export default class FileArchiver {
 
-    constructor(app, files = [], response){
+    constructor(app, files = [], response) {
 
         this.app = app;
         this.files = files;
         this.response = response;
     }
 
-    download(){
+    download() {
 
         const app = this.app;
         const files = this.files;
@@ -26,7 +25,6 @@ export default class FileArchiver{
 
 
         const s3Downloader = new S3(app, response);
-
 
 
         _.each(files, (file) => {

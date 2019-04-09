@@ -4,19 +4,20 @@ import {url} from "./config";
 export default class Email {
 
 
-    constructor(app){
+    constructor(app) {
 
         this.app = app;
     }
 
 
-    sendDownloadLink(post, callback = () => {}){
+    sendDownloadLink(post, callback = () => {
+    }) {
 
 
         const app = this.app;
         const email = app.email;
 
-        const from = _.get(post,'from');  // post.from;
+        const from = _.get(post, 'from');  // post.from;
         const to = _.get(post, 'to');
         const message = _.get(post, 'message', '');
         const postId = _.get(post, '_id');

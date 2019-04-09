@@ -1,8 +1,8 @@
 import _ from 'lodash'
 
-class Post{
+class Post {
 
-    constructor(app){
+    constructor(app) {
 
         this.app = app;
 
@@ -17,7 +17,7 @@ class Post{
         }
     }
 
-    initWithObject(obj){
+    initWithObject(obj) {
 
         this.model.from = _.get(obj, 'from');
         this.model.to = _.get(obj, 'to');
@@ -28,7 +28,7 @@ class Post{
         return this;
     }
 
-    toJSON(){
+    toJSON() {
 
         return this.model;
     }

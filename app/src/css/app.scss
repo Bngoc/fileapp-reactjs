@@ -9,10 +9,12 @@ body {
   color: $body-text-color;
   font-size: 13px;
 }
-a{
+
+a {
   color: $primary-color;
   text-decoration: none;
 }
+
 * {
   box-sizing: border-box;
 }
@@ -30,11 +32,14 @@ a{
   position: relative;
   overflow: hidden;
   padding: 20px 0 0 0;
+
   .app-header {
     padding-bottom: 30px;
     text-align: center;
+
     .app-site-info {
       color: #FFFFFF;
+
       h1 {
         margin: 0;
         padding: 0;
@@ -42,6 +47,7 @@ a{
         font-weight: 800;
 
       }
+
       .site-title {
         margin: 20px 0 0 0;
         padding: 0;
@@ -52,6 +58,7 @@ a{
           display: none;
         }
       }
+
       .site-slogan {
         @media (max-width: $screen-sm) {
           display: none;
@@ -65,6 +72,7 @@ a{
     }
 
   }
+
   .app-content {
 
   }
@@ -91,17 +99,21 @@ a{
   @media (min-width: $screen-sm) {
     width: 350px;
   }
+
   .app-card-header {
     background: rgba(243, 247, 255, 1);
+
     .app-card-header-inner {
       padding: 10px 20px;
     }
   }
+
   .app-card-content {
     .app-card-content-inner {
       padding: 20px;
     }
   }
+
   &.app-card-uploading, &.app-card-upload-sent {
     .app-card-content {
       .app-card-content-inner {
@@ -116,18 +128,22 @@ a{
   display: block;
   text-align: center;
   padding: 10px 0 0 0;
+
   label {
     display: block;
     width: 100%;
+
     input {
       position: fixed;
       top: -9999px;
     }
   }
+
   .app-upload-description {
     font-size: 12px;
     display: block;
   }
+
   .app-upload-icon {
     display: inline-block;
     margin-bottom: 10px;
@@ -135,6 +151,7 @@ a{
     height: 30px;
     border: 1px dashed $body-text-color;
     position: relative;
+
     i {
       position: absolute;
       left: 10px;
@@ -143,6 +160,7 @@ a{
       font-size: 28px;
     }
   }
+
   &.error {
     .app-upload-icon {
       border-color: $danger-color;
@@ -152,13 +170,15 @@ a{
 
 .app-form-item {
   margin: 0 0 15px 0;
+
   label {
     text-transform: uppercase;
     display: block;
     font-weight: 400;
     margin: 0 0 8px 0;
   }
-  input[type='text'], input[type='email'],input[type='password'],textarea {
+
+  input[type='text'], input[type='email'], input[type='password'], textarea {
     width: 100%;
     border: 1px solid rgba(224, 224, 224, 1);
     outline: 0 none;
@@ -166,13 +186,16 @@ a{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+
     &:focus, :active {
       outline: 0 none;
     }
   }
+
   textarea {
     min-height: 50px;
   }
+
   &.error {
     input {
       color: $danger-color;
@@ -194,11 +217,13 @@ a{
     border-radius: 5px;
     padding: 10px 15px;
     text-transform: uppercase;
+
     &.primary {
       background: $primary-color;
       color: #FFFFFF;
     }
-    &.app-button-link{
+
+    &.app-button-link {
       background: none;
       border: 0 none;
       color: $primary-color;
@@ -214,17 +239,21 @@ a{
   position: relative;
   margin: -20px -20px 0 -20px;
   padding: 20px;
+
   .app-files-selected-item {
     display: flex;
     border-bottom: 1px solid rgba(0, 0, 0, 0.09);
     padding: 10px 0;
+
     .filename {
       flex-grow: 1;
     }
+
     .file-action {
 
     }
   }
+
   .app-file-remove {
     border: 0 none;
     padding: 3px;
@@ -245,6 +274,7 @@ a{
 .app-home-uploading-icon {
   display: block;
   text-align: center;
+
   i {
     font-size: 60px;
     display: inline-block;
@@ -254,6 +284,7 @@ a{
     border-radius: 50%;
     line-height: 100px;
   }
+
   h2 {
     margin: 20px 0 0 0;
     padding: 0;
@@ -264,6 +295,7 @@ a{
 .app-home-upload-sent-icon {
   display: block;
   text-align: center;
+
   i {
     font-size: 50px;
     display: inline-block;
@@ -283,9 +315,11 @@ a{
 
   display: flex;
   flex-direction: row;
+
   .app-upload-stats-left {
     flex-grow: 1;
   }
+
   .app-upload-stats-right {
 
   }
@@ -301,6 +335,7 @@ a{
   margin: 10px 0 10px 0;
   position: relative;
   overflow: hidden;
+
   .app-progress-bar {
     display: block;
     position: absolute;
@@ -327,6 +362,7 @@ a{
     padding: 0;
     margin: 20px 0;
   }
+
   p {
     line-height: 1.5em;
   }
@@ -334,6 +370,7 @@ a{
 
 .app-upload-sent-actions {
   margin: 20px 0;
+
   button {
     margin: 10px 0;
   }
@@ -351,17 +388,20 @@ a{
 .app-top-header {
   text-align: center;
   color: #FFFFFF;
+
   h1 {
     margin: 0;
     padding: 0;
     font-size: 50px;
     font-weight: 800;
   }
+
   margin-bottom: 20px;
 }
 
 .app-download-icon {
   text-align: center;
+
   i {
     font-size: 50px;
     color: $body-text-color;
@@ -378,19 +418,23 @@ a{
 
 .app-download-message {
   margin-top: 30px;
+
   h2 {
     font-size: 20px;
     margin: 20px 0;
   }
+
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
+
     li {
       padding: 0 0 0 10px;
       margin: 0 10px 0 0;
       display: inline-block;
       position: relative;
+
       &:before {
         position: absolute;
         top: 5px;
@@ -402,43 +446,52 @@ a{
         background: $body-text-color;
         border-radius: 50%;
       }
-      &:first-child{
+
+      &:first-child {
         padding: 0;
-        &:before{
+
+        &:before {
           display: none;
         }
       }
     }
   }
 }
-.app-download-file-list{
+
+.app-download-file-list {
   margin: 30px 0;
-  .app-download-file-list-item{
-    border-bottom: 1px solid rgba(227,234,248,1);
+
+  .app-download-file-list-item {
+    border-bottom: 1px solid rgba(227, 234, 248, 1);
     padding: 10px 5px;
     display: flex;
-    .filename{
+
+    .filename {
       flex-grow: 1;
     }
-    .download-action{
-      a{
+
+    .download-action {
+      a {
         color: $primary-color;
         text-decoration: none;
       }
     }
   }
 }
-.app-download-actions{
-  button{
+
+.app-download-actions {
+  button {
     margin: 10px 0;
   }
 }
-.app-top-header{
-  h1{
+
+.app-top-header {
+  h1 {
     cursor: pointer;
   }
 }
-.app-top-bar{
+
+.app-top-bar {
   color: #FFFFFF;
   height: $header-height;
   position: fixed;
@@ -446,48 +499,57 @@ a{
   left: 0;
   top: 0;
   z-index: 1000;
-  .app-top-bar-inner{
+
+  .app-top-bar-inner {
     max-width: 1000px;
     margin: 0 auto;
     display: flex;
-    .app-top-bar-left{
+
+    .app-top-bar-left {
       flex-grow: 1;
     }
-    .app-top-bar-right{
+
+    .app-top-bar-right {
       text-align: right;
-      .app-top-bar-right-inner{
+
+      .app-top-bar-right-inner {
         display: flex;
       }
     }
   }
-  .site-name{
+
+  .site-name {
     font-size: 30px;
     cursor: pointer;
     line-height: $header-height;
   }
-  .user-profile-picture{
+
+  .user-profile-picture {
     padding-top: 10px;
-    img{
+
+    img {
       width: 30px;
       height: 30px;
       border-radius: 50%;
 
     }
   }
-  .user-profile-menu{
+
+  .user-profile-menu {
     margin: 0;
     padding: 0;
     font-weight: 600;
     list-style: none;
-    li{
-        padding: 0 10px;
-        line-height: $header-height;
+
+    li {
+      padding: 0 10px;
+      line-height: $header-height;
     }
   }
 }
 
 
-.app-login-form{
+.app-login-form {
   background: #FFFFFF;
   position: fixed;
   right: 0;
@@ -495,44 +557,52 @@ a{
   min-width: 300px;
   bottom: 0;
   z-index: 1001;
-  .form-title{
+
+  .form-title {
     padding: 20px 0;
     font-size: 25px;
-    font-weight: 600; 
+    font-weight: 600;
     text-align: center;
     display: block;
   }
-  .app-login-form-inner{
+
+  .app-login-form-inner {
     position: relative;
     padding: 40px;
   }
-  .app-form-actions{
-      button{
-        margin: 10px 0;
-      }
+
+  .app-form-actions {
+    button {
+      margin: 10px 0;
+    }
   }
-  .app-form-description{
+
+  .app-form-description {
     text-align: center;
   }
-  .app-dismiss-button{
+
+  .app-dismiss-button {
     position: absolute;
     right: 20px;
     top: 20px;
     z-index: 1002;
   }
 }
-.user-signin-button{
+
+.user-signin-button {
   cursor: pointer;
 }
-.app-message{
 
-  p{
+.app-message {
+
+  p {
     padding: 10px;
     border: 1px solid $primary-color;
     border-radius: 5px;
     margin: 10px 0;
     color: $primary-color;
-    &.error{
+
+    &.error {
       border-color: $danger-color;
       color: $danger-color;
     }

@@ -5,226 +5,212 @@ import {ObjectID} from 'mongodb'
 
 const saltRounds = 10;
 
-export default class User{
+export default class User {
 
 
+    constructor(app) {
 
-	constructor(app){
+        this.app = app;
 
-		this.app = app;
 
+        this.model = {
+            name: null,
+            email: null,
+            password: null,
+            created: new Date(),
+            updated: null,
+        }
 
 
-		this.model = {
-			name: null,
-			email: null,
-			password: null,
-			created: new Date(),
-			updated: null,
-		}
+        this.findUserByEmail = this.findUserByEmail.bind(this);
+        this.login = this.login.bind(this);
+        this.findById = this.findById.bind(this);
+    }
 
 
-		this.findUserByEmail = this.findUserByEmail.bind(this);
-		this.login = this.login.bind(this);
-		this.findById = this.findById.bind(this);
-	}
+    findById(id = null, cb = () => {
+    }) {
 
 
-	findById(id = null, cb = () => {}){
+        const db = this.app.db;
 
+        const query = {
+            _id: new ObjectID(id)
+        }
+        db.collection('users').find(query).limit(1).toArray((err, result) => {
 
-		const db = this.app.db;
+            const user = _.get(result, '[0]');
+            if (err === null && user) {
 
-		const query = {
-			_id: new ObjectID(id)
-		}
-		db.collection('users').find(query).limit(1).toArray((err, result) => {
+                delete user.password;
 
-			const user = _.get(result, '[0]');
-			if(err === null && user){
+                return cb(null, user);
+            }
 
-				delete user.password;
-				
-				return cb(null, user);
-			}
+            const error = {message: "User not found."}
+            return cb(error, null);
+        })
+    }
 
-			const error = {message: "User not found."}
-			return cb(error, null);
-		})
-	}
-	login(email, password, callback = () => {}){
+    login(email, password, callback = () => {
+    }) {
 
-		const app = this.app;
+        const app = this.app;
 
-		let error = null;
-		let user = {name: "A", email: "test@gmail.com"};
+        let error = null;
+        let user = {name: "A", email: "test@gmail.com"};
 
-		console.log("Email: ", email, "password:", password);
+        console.log("Email: ", email, "password:", password);
 
-		if(!email || !password){
+        if (!email || !password) {
 
-			error = {message: "Email or password is required."};
-			return callback(error, null);
-		}
+            error = {message: "Email or password is required."};
+            return callback(error, null);
+        }
 
-		this.findUserByEmail(email, (err, user) => {
+        this.findUserByEmail(email, (err, user) => {
 
 
-			if(err === null && user){
+            if (err === null && user) {
 
-			
 
-				const passwordCheck = bcrypt.compareSync(password, user.password); // false
+                const passwordCheck = bcrypt.compareSync(password, user.password); // false
 
-			
 
-				if(passwordCheck){
+                if (passwordCheck) {
 
-					// create new token and return this token key for user and use it for later request.
-					const auth = new Auth(app);
+                    // create new token and return this token key for user and use it for later request.
+                    const auth = new Auth(app);
 
 
-					auth.createToken(user, null, (err, token) => {
+                    auth.createToken(user, null, (err, token) => {
 
 
-				
+                        if (err) {
 
-						if(err){
+                            error = {message: "An error login your account"};
+                            return cb(error, null);
+                        }
 
-							error = {message: "An error login your account"};
-							return cb(error, null);
-						}
+                        delete user.password;
+                        token.user = user;
+                        return callback(null, token);
 
-						delete user.password;
-						token.user = user;
-						return callback(null, token);
+                    });
 
-					});
 
+                } else {
 
-					
-				}else{
+                    error = {message: "Password does not match."};
 
-					error = {message: "Password does not match."};
+                    return callback(error, null);
 
-					return callback(error, null);
+                }
 
-				}
 
-				
+            }
+            if (err || !user) {
+                error = {message: "An error login your account"};
 
-			}
-			if(err || !user){
-				error = {message: "An error login your account"};
+                return callback(error, null);
+            }
 
-				return callback(error, null);
-			}
 
+        });
 
 
+    }
 
+    initWithObject(obj) {
 
-		});
+        this.model.name = _.trim(_.get(obj, 'name', null));
+        this.model.email = _.toLower(_.trim(_.get(obj, 'email', null)));
+        this.model.password = _.get(obj, 'password', null);
 
-		
-	}
 
-	initWithObject(obj){
+        return this;
+    }
 
-		this.model.name = _.trim(_.get(obj, 'name', null));
-		this.model.email = _.toLower(_.trim(_.get(obj, 'email', null)));
-		this.model.password = _.get(obj, 'password', null);
+    validate(cb = () => {
+    }) {
 
 
+        let errors = [];
 
 
-		return this;
-	}
+        const model = this.model;
+        const db = this.app.db;
 
-	validate(cb = () => {}){
 
+        if (model.password.length < 3) {
 
-		let errors = [];
+            errors.push({
+                message: "Password should more than 3 characters."
+            });
+        }
 
 
-		const model = this.model;
-		const db = this.app.db;
+        this.findUserByEmail(model.email, (err, user) => {
 
 
-		if(model.password.length < 3 ){
+            if (err || user) {
 
-			errors.push({
-				message: "Password should more than 3 characters."
-			});
-		}
+                errors.push({message: "Email already exists."});
+            }
 
-		
 
-		
+            return cb(errors);
+        });
 
-		this.findUserByEmail(model.email, (err, user) => {
 
+    }
 
-			if(err || user){
+    findUserByEmail(email = null, callback = () => {
+    }) {
+        const db = this.app.db;
 
-				errors.push({message: "Email already exists."});
-			}
+        const query = {
+            email: email
+        };
 
+        db.collection('users').find(query).limit(1).toArray((err, result) => {
+            return callback(err, _.get(result, '[0]', null));
+        });
 
-			return cb(errors);
-		});
 
+    }
 
+    create(cb) {
 
-	}
+        let model = this.model;
+        const db = this.app.db;
 
-	findUserByEmail(email = null, callback = () => {}){
-		const db = this.app.db;
+        const hashPassword = bcrypt.hashSync(model.password, saltRounds);
+        model.password = hashPassword;
 
-		const query = {
-			email: email
-		};
+        this.validate((errors) => {
 
-		db.collection('users').find(query).limit(1).toArray((err, result) => {
-			return callback(err, _.get(result, '[0]', null));
-		}); 
 
+            let messages = [];
 
-	}
-	create(cb){
+            if (errors.length > 0) {
 
-		let model = this.model;
-		const db = this.app.db;
+                _.each(errors, (err) => {
 
-		const hashPassword = bcrypt.hashSync(model.password, saltRounds);
-		model.password = hashPassword;
-		
-		this.validate((errors) => {
+                    messages.push(err.message);
+                });
 
+                return cb(_.join(messages, ','), null);
 
+            }
 
-			let messages = [];
+            db.collection('users').insertOne(model, (err, result) => {
+                return cb(err, model);
+            });
 
-			if(errors.length > 0){
+        });
 
-				_.each(errors, (err) => {
 
-					messages.push(err.message);
-				});
-
-				return cb(_.join(messages, ','), null);
-				
-			}
-			
-			db.collection('users').insertOne(model, (err, result) => {
-					return cb(err, model);
-			});
-
-		});
-
-
-		
-
-	}
+    }
 
 }
