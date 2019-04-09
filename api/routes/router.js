@@ -1,13 +1,13 @@
 import {version} from '../package.json'
 import _ from 'lodash'
-import File from './models/file'
-import Post from './models/post'
+import File from '../src/models/file'
+import Post from '../src/models/post'
 import {ObjectID} from 'mongodb'
-import FileArchiver from './archiver'
-import Email from './email'
-import S3 from './s3'
-import User from './models/user'
-import Auth from './models/auth'
+import FileArchiver from '../src/archiver'
+import Email from '../src/email'
+import S3 from '../src/s3'
+import User from '../src/models/user'
+import Auth from '../src/models/auth'
 
 class AppRouter {
 
