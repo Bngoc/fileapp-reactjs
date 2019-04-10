@@ -9,7 +9,7 @@ import path from 'path';
 import {connect} from "./core/database";
 import AppRouter from './routes/router'
 import nodemailer from 'nodemailer'
-import * from './config'
+import {*} from './config'
 // import {s3Bucket, s3Config, s3Region, smtp} from './config'
 // Amazon S3 Setup
 import AWS from 'aws-sdk/index'

@@ -1,4 +1,4 @@
-import {accessKeyId, secretAccessKey} from './s3-config.json'
+import {accessKeyId, secretAccessKey} from '../config/s3-config.json'
 
 export const smtp = {
     host: 'smtp.sendgrid.net',

@@ -4,8 +4,8 @@
   "description": "ES6 Nodejs express 4 starter",
   "main": "dist",
   "scripts": {
-    "dev": "nodemon -w src --exec \"babel-node src --presets env,stage-0\"",
-    "build": "babel src -s -D -d dist --presets env,stage-0",
+    "dev": "nodemon -w src --exec \"babel-node --presets env,stage-0\"",
+    "build": "babel -s -D -d dist --presets env,stage-0",
     "start": "node dist",
     "prestart": "npm run -s build",
     "test": "eslint src"
